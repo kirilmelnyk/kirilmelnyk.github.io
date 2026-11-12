@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Портфоліо Кирила Мельника</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@600;700;800&display=swap">
+</head><body><style>
+/* Layout concept: one long scroll. Each case sets text on one side and its process on the other, alternating.
+   Blocks fly in from the sides as they enter the screen and fly back out as they leave. */
+:root{
+  --bg:#f4f7fc; --surface:#ffffff; --surface-2:#e8eef9; --fg:#0e1a3c; --muted:#4b5a80; --line:#d1daed;
+  --navy:#203572; --accent:#077a97; --accent-soft:rgba(7,122,151,.11); --on-navy:#ffffff;
+  --warn:#9a5b00; --warn-soft:rgba(154,91,0,.1); --ok:#0b7a4d; --ok-soft:rgba(11,122,77,.1);
+  --f-display:'Manrope','Segoe UI',system-ui,sans-serif;
+  --f-body:'Inter','Segoe UI',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --shadow:0 18px 50px -24px rgba(14,26,60,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1229; --surface:#111b3b; --surface-2:#17234a; --fg:#e9eefc; --muted:#a2b2d9; --line:#243259;
+    --navy:#3fc7df; --accent:#3fc7df; --accent-soft:rgba(63,199,223,.13); --on-navy:#06142e;
+    --warn:#f0b35a; --warn-soft:rgba(240,179,90,.12); --ok:#5fd6a3; --ok-soft:rgba(95,214,163,.12);
+    --shadow:0 18px 50px -24px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1229; --surface:#111b3b; --surface-2:#17234a; --fg:#e9eefc; --muted:#a2b2d9; --line:#243259;
+  --navy:#3fc7df; --accent:#3fc7df; --accent-soft:rgba(63,199,223,.13); --on-navy:#06142e;
+  --warn:#f0b35a; --warn-soft:rgba(240,179,90,.12); --ok:#5fd6a3; --ok-soft:rgba(95,214,163,.12);
+  --shadow:0 18px 50px -24px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.08;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{font-family:var(--f-display);font-weight:800;text-decoration:none;font-size:17px}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.nav a{font-size:14px;text-decoration:none;padding:6px 12px;border-radius:999px;color:var(--muted);transition:background .2s,color .2s}
+.nav a:hover{background:var(--accent-soft);color:var(--fg)}
+.progress{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+
+/* hero */
+.hero{padding-block:clamp(40px,7vw,96px) clamp(48px,6vw,80px);position:relative}
+.hero::before{content:"";position:absolute;inset:-120px -10% auto auto;width:640px;height:640px;border-radius:50%;background:radial-gradient(closest-side,var(--accent-soft),transparent);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:center;position:relative}
+.hero h1{font-size:clamp(40px,7.2vw,88px);font-weight:800;letter-spacing:-.03em;line-height:.98;overflow-wrap:anywhere}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.role{margin-top:18px}
+.lead{margin-top:22px;font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:54ch}
+.lead b{color:var(--fg);font-weight:600}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--navy);transition:transform .2s,background .2s,color .2s}
+.btn.primary{background:var(--navy);color:var(--on-navy)}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost:hover{background:var(--accent-soft)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.stat{padding:18px 18px 0 0}
+.stat+.stat{padding-left:18px;border-left:1px solid var(--line)}
+.stat b{display:block;font-family:var(--f-display);font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:8px;font-size:13.5px;color:var(--muted);line-height:1.4}
+
+/* cards and flows */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}
+.card h3{font-size:19px;letter-spacing:-.01em}
+.raw{margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--surface-2);font-family:var(--f-mono);font-size:14px}
+.raw small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.flow{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:0}
+.flow li{position:relative;padding:0 0 18px 38px}
+.flow li:last-child{padding-bottom:0}
+.flow li::before{content:"";position:absolute;left:11px;top:26px;bottom:2px;width:2px;background:var(--line)}
+.flow li:last-child::before{display:none}
+.flow li::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;border:2px solid var(--accent);background:var(--surface)}
+.flow b{display:block;font-weight:600;line-height:1.3}
+.flow span{display:block;font-size:14px;color:var(--muted);line-height:1.45}
+
+/* cases */
+.case{padding-block:clamp(48px,7vw,96px);border-top:1px solid var(--line)}
+.case-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(28px,5vw,72px);align-items:start}
+.case.rev .case-text{order:2}
+.case h2{font-size:clamp(30px,4.2vw,50px);margin-top:10px}
+.sub{margin-top:12px}
+.rows{margin:28px 0 0;display:grid;gap:0}
+.rows div{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.rows dt{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding-top:3px}
+.rows dd{margin:0}
+.rows dd strong{font-weight:600}
+.metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.metric{padding:10px 16px;border-radius:14px;background:var(--accent-soft)}
+.metric b{font-family:var(--f-display);font-size:24px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.metric span{display:block;font-size:12.5px;color:var(--muted);line-height:1.3}
+.case-viz{display:grid;gap:18px;min-width:0}
+.gate{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.gate div{padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.5}
+.gate .hard{background:var(--warn-soft)}
+.gate .soft{background:var(--ok-soft)}
+.gate b{display:block;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.gate .hard b{color:var(--warn)}
+.gate .soft b{color:var(--ok)}
+.gate ul{margin:0;padding-left:18px}
+.shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.shot{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface);cursor:default}
+.shot .ph{aspect-ratio:16/10;display:grid;place-items:center;text-align:center;padding:14px;color:var(--muted);font-size:13px;line-height:1.4;background:repeating-linear-gradient(135deg,var(--surface-2) 0 12px,transparent 12px 24px)}
+.shot .ph b{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.shot img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.shot.loaded{cursor:zoom-in}
+.shot figcaption{padding:10px 12px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+
+/* also built */
+.band{padding-block:clamp(48px,7vw,96px);border-top:1px solid var(--line)}
+.band h2{font-size:clamp(30px,4.2vw,50px);max-width:20ch}
+.band .intro{margin-top:14px;color:var(--muted);max-width:58ch}
+.grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:36px}
+.mini{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.mini b{display:block;font-family:var(--f-display);font-size:34px;letter-spacing:-.03em;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.mini h3{font-size:18px;margin-top:12px;letter-spacing:-.01em}
+.mini p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+
+/* how I work */
+.work-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.rules{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:0}
+.rules li{padding:16px 0;border-top:1px solid var(--line)}
+.rules b{display:block;font-weight:600}
+.rules span{color:var(--muted);font-size:15px}
+.files{display:grid;gap:14px}
+.file{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.file h3{font-size:17px;letter-spacing:-.01em}
+.file dl{margin:12px 0 0;display:grid;gap:8px}
+.file dl div{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;font-size:14.5px}
+.file dt{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding-top:3px}
+.file dd{margin:0;color:var(--muted)}
+
+/* contact */
+.contact{padding-block:clamp(56px,8vw,112px);border-top:1px solid var(--line)}
+.contact h2{font-size:clamp(34px,5.6vw,68px);max-width:16ch}
+.contact-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:36px;max-width:760px}
+.contact-list div{padding:16px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);min-width:0}
+.contact-list .mono{display:block;margin-bottom:4px}
+.contact-list span:not(.mono){font-family:var(--f-mono);font-size:15px;overflow-wrap:anywhere;user-select:all}
+.foot{margin-top:56px;color:var(--muted);font-size:13.5px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;background:rgba(6,12,30,.86)}
+.lb img{max-width:min(1200px,100%);max-height:100%;border-radius:12px}
+
+/* motion: blocks fly in from the sides on entry and out on exit */
+@keyframes in-l{from{opacity:0;transform:translateX(-110px)}to{opacity:1;transform:none}}
+@keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-110px)}}
+@keyframes in-r{from{opacity:0;transform:translateX(110px)}to{opacity:1;transform:none}}
+@keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(110px)}}
+@keyframes in-u{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes out-u{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-40px)}}
+@supports (animation-timeline: view()){
+  .fx{animation-duration:auto,auto;animation-timing-function:linear,linear;animation-fill-mode:both,both;
+      animation-timeline:view(),view();animation-range:entry 0% entry 55%,exit 45% exit 100%}
+  .fx-l{animation-name:in-l,out-l}
+  .fx-r{animation-name:in-r,out-r}
+  .fx-u{animation-name:in-u,out-u}
+}
+.fb .fx{opacity:0;transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .8s}
+.fb .fx-l{transform:translateX(-90px)}
+.fb .fx-r{transform:translateX(90px)}
+.fb .fx-u{transform:translateY(50px)}
+.fb .fx.on{opacity:1;transform:none}
+@media (max-width:860px){
+  .hero-grid,.case-grid,.work-grid{grid-template-columns:minmax(0,1fr)}
+  .case.rev .case-text{order:0}
+  .nav a{padding:6px 9px}
+  .grid4,.contact-list,.shots,.gate{grid-template-columns:minmax(0,1fr)}
+  .rows div{grid-template-columns:minmax(0,1fr);gap:4px}
+  .stat{padding-right:10px}
+  .stat+.stat{padding-left:10px}
+  @keyframes in-l{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+  @keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-40px)}}
+  @keyframes in-r{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+  @keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(40px)}}
+}
+@media (max-width:520px){.nav a:nth-child(n+4){display:none}.stat b{font-size:26px}}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .fx,.fb .fx{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Кирило <span>Мельник</span></a>
+    <nav class="nav" aria-label="Розділи">
+      <a href="#cases">Кейси</a>
+      <a href="#also">Ще зроблено</a>
+      <a href="#ai">Робота зі ШІ</a>
+      <a href="#contact">Контакти</a>
+    </nav>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="fx fx-l">
+        <p class="mono">IT та автоматизація зі ШІ · Україна</p>
+        <h1 class="role">Кирило<br>Мельник<em>.</em></h1>
+        <p class="lead">Я замінюю ручну рутину системами, що працюють у бойовому режимі: відправлення, замовлення, рекламна аналітика, відео. Будую їх разом із <b>Claude Code</b> і <b>Codex</b> під власним керівництвом і відповідаю за кожен результат. До IT пропрацював понад 9 років у логістиці Нової Пошти.</p>
+        <div class="cta">
+          <a class="btn primary" href="#cases">Дивитися кейси</a>
+          <a class="btn ghost" href="#contact">Контакти</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>280</b><span>ТТН створено за два дні</span></div>
+          <div class="stat"><b>19 000</b><span>товарів імпортовано приблизно за 90 секунд</span></div>
+          <div class="stat"><b>549</b><span>автоматичних тестів, 100+ релізів</span></div>
+        </div>
+      </div>
+      <aside class="card fx fx-r" aria-label="Як заявка з Telegram стає накладною">
+        <p class="mono">Від заявки в Telegram до ТТН</p>
+        <div class="raw"><small>Заявка як є</small>Київ 19 · оценка 200</div>
+        <ol class="flow">
+          <li><b>Розбір</b><span>ШІ, словник псевдонімів, що самонавчається, регулярні вирази як підстраховка</span></li>
+          <li><b>Перевірка</b><span>Місто, вулиця й відділення звіряються з API Нової Пошти</span></li>
+          <li><b>Підтвердження</b><span>Сумнівні випадки чекають на людину</span></li>
+          <li><b>Створення</b><span>Пакетні ТТН, реєстри, картки для друку</span></li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <div id="cases"></div>
+
+  <section class="case" id="np">
+    <div class="wrap case-grid">
+      <div class="case-text fx fx-l">
+        <p class="mono">Кейс · Логістика</p>
+        <h2>Автоматизація відправлень Нової Пошти</h2>
+        <p class="sub mono">Telegram · розбір ШІ · пакетні ТТН · бойова система</p>
+        <dl class="rows">
+          <div><dt>Проблема</dt><dd>Заявки приходили вільним текстом у Telegram. Адреси й накладні опрацьовували по одній вручну, а помилка в сумі чи сорті коштувала грошей.</dd></div>
+          <div><dt>Зроблено</dt><dd>Багаторівневий розбір заявок, перевірка адрес через API Нової Пошти, пакетне створення ТТН для трьох контрагентів з окремими ключами, розділення на місця за лімітом 25 кг, об'ємна вага, реєстри та картки для друку.</dd></div>
+          <div><dt>Результат</dt><dd><strong>280 ТТН за два дні.</strong> Тестовий реєстр на 319 ТТН прийнято Новою Поштою. Кожну зміну правил перевіряю на 87–280 реальних заявках.</dd></div>
+          <div><dt>Моя роль</dt><dd>Вимоги, правила ризиків, тестування на реальних даних і на тестовому акаунті Нової Пошти, приймання результату. Код написано з Claude Code.</dd></div>
+        </dl>
+        <div class="metrics">
+          <div class="metric"><b class="count" data-to="280">280</b><span>ТТН за два дні</span></div>
+          <div class="metric"><b class="count" data-to="319">319</b><span>у прийнятому тестовому реєстрі</span></div>
+          <div class="metric"><b class="count" data-to="3">3</b><span>контрагенти, окремі ключі</span></div>
+        </div>
+      </div>
+      <div class="case-viz fx fx-r">
+        <div class="card">
+          <h3>Шлюз підтвердження</h3>
+          <p style="margin-top:6px;color:var(--muted);font-size:14.5px">ТТН створюється лише після того, як заявка пройшла перевірки або людина її підтвердила.</p>
+          <div class="gate">
+            <div class="hard"><b>Блокує, доки не виправлено</b><ul><li>Немає суми</li><li>Невідомий сорт</li><li>Місто не знайдено</li></ul></div>
+            <div class="soft"><b>Потрібне підтвердження людини</b><ul><li>Ціна нижча за прайс більш ніж на 30%</li><li>Неоднозначна кількість, як-от 5+5</li><li>Суперечлива оплата</li><li>Неточний збіг міста, дубль</li></ul></div>
+          </div>
+        </div>
+        <div class="shots">
+          <figure class="shot" data-img="img/np-review.webp"><div class="ph"><div><b>Скриншот</b>Таблиця заявок до створення ТТН</div></div><figcaption>Таблиця перевірки, один рядок на заявку</figcaption></figure>
+          <figure class="shot" data-img="img/np-print.webp"><div class="ph"><div><b>Скриншот</b>Картка для друку, чотири на аркуші А4</div></div><figcaption>Картки для пакувальників</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case rev" id="store">
+    <div class="wrap case-grid">
+      <div class="case-text fx fx-r">
+        <p class="mono">Кейс · Електронна комерція</p>
+        <h2>Інтернет-магазин, створений із ШІ-агентами</h2>
+        <p class="sub mono">PHP 8 · MySQL · Cloudflare · CRM · працює в бойовому режимі</p>
+        <dl class="rows">
+          <div><dt>Проблема</dt><dd>Запустити повноцінний магазин з каталогом, кошиком, оформленням, адмінкою, SEO й рекламною аналітикою без команди розробників, поруч із працюючими лендінгами, які не можна зламати.</dd></div>
+          <div><dt>Зроблено</dt><dd>Codex писав бекенд, Claude Code фронтенд за моїм планом, API-контрактом і ТЗ. Гейт перед комітом проганяє тести, деплой однією командою, а ШІ-агент реклами може лише пропонувати: із журналом аудиту й аварійним вимикачем.</dd></div>
+          <div><dt>Результат</dt><dd><strong>Близько 19 000 товарів імпортовано приблизно за 90 секунд.</strong> 340+ комітів приблизно за місяць, 500+ рекламних пропозицій оброблено безпечно, запуск за Cloudflare Worker з перемикачем відкату.</dd></div>
+          <div><dt>Моя роль</dt><dd>Власник продукту й тімлід: план, контракт, ТЗ, перевірка кожного результату, бізнес-рішення.</dd></div>
+        </dl>
+        <div class="metrics">
+          <div class="metric"><b class="count" data-to="19000">19 000</b><span>товарів імпортовано</span></div>
+          <div class="metric"><b class="count" data-to="340">340+</b><span>комітів приблизно за місяць</span></div>
+          <div class="metric"><b class="count" data-to="500">500+</b><span>рекламних пропозицій, жодної автоматично</span></div>
+        </div>
+      </div>
+      <div class="case-viz fx fx-l">
+        <div class="card">
+          <h3>Два агенти, один контракт</h3>
+          <ol class="flow">
+            <li><b>План, API-контракт, ТЗ</b><span>Пишу я, окреме ТЗ на кожну задачу</span></li>
+            <li><b>Codex будує бекенд, Claude Code фронтенд</b><span>Паралельно, у git worktree з власними тестовими базами</span></li>
+            <li><b>Гейт перед комітом</b><span>Тести проходять до того, як щось зберігається</span></li>
+            <li><b>Деплой однією командою</b><span>Далі замовлення йдуть у CRM і Нову Пошту, рекламні події на сервері</span></li>
+          </ol>
+        </div>
+        <div class="shots">
+          <figure class="shot" data-img="img/store-admin.webp"><div class="ph"><div><b>Скриншот</b>Адмінка: замовлення або розділ рекламних пропозицій</div></div><figcaption>Адмінка, замовлення й пропозиції</figcaption></figure>
+          <figure class="shot" data-img="img/store-front.webp"><div class="ph"><div><b>Скриншот</b>Вітрина на телефоні</div></div><figcaption>Вітрина на телефоні</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case" id="studio">
+    <div class="wrap case-grid">
+      <div class="case-text fx fx-l">
+        <p class="mono">Кейс · Відеовиробництво</p>
+        <h2>Prosperity Studio</h2>
+        <p class="sub mono">Python · Qt · ffmpeg · десктопний застосунок</p>
+        <dl class="rows">
+          <div><dt>Проблема</dt><dd>Одне довге відео вимагало десятків ручних кроків у різних сервісах: ШІ-моделі, озвучення, зображення, монтаж.</dd></div>
+          <div><dt>Зроблено</dt><dd>Десктопний застосунок, що перетворює тему на готове відео кількома мовами, з чергою завдань, повторами й самовідновленням. Оновлення зберігають копію бази й відкочуються повністю. Одна команда випускає версію й перевіряє розпаковану збірку.</dd></div>
+          <div><dt>Результат</dt><dd><strong>549 автоматичних тестів і 100+ релізів за десять тижнів.</strong> Кожне виправлення простежується до скарги користувача й першопричини.</dd></div>
+          <div><dt>Моя роль</dt><dd>Власник продукту для двох ШІ-агентів: Codex на інтерфейсі, Claude Code на рушії, за письмовим контрактом про власність.</dd></div>
+        </dl>
+        <div class="metrics">
+          <div class="metric"><b class="count" data-to="549">549</b><span>автоматичних тестів</span></div>
+          <div class="metric"><b class="count" data-to="100">100+</b><span>релізів за десять тижнів</span></div>
+        </div>
+      </div>
+      <div class="case-viz fx fx-r">
+        <div class="card">
+          <h3>Від теми до завантаження</h3>
+          <ol class="flow">
+            <li><b>Тема й дослідження</b><span>Джерела збираються до сценарію</span></li>
+            <li><b>Сценарій, озвучення, зображення сцен</b><span>Зображення малюються один раз і діляться між мовами</span></li>
+            <li><b>Монтаж, превʼю, шортси</b><span>ffmpeg, вертикальні кадри з відстеженням обличчя</span></li>
+            <li><b>Завантаження</b><span>Збійний крок продовжується без повторної оплати попередніх</span></li>
+          </ol>
+        </div>
+        <div class="shots">
+          <figure class="shot" data-img="img/studio-queue.webp"><div class="ph"><div><b>Скриншот</b>Таблиця епізодів і черга завдань</div></div><figcaption>Епізоди й черга завдань</figcaption></figure>
+          <figure class="shot" data-img="img/studio-release.webp"><div class="ph"><div><b>Скриншот</b>Запуск релізу, усі перевірки зелені</div></div><figcaption>Реліз однією командою</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="also">
+    <div class="wrap">
+      <h2 class="fx fx-l">Ще зроблено</h2>
+      <p class="intro fx fx-l">Менші системи за тим самим принципом: одне спільне ядро замість коду на кожен сайт, і кожну зміну можна відкотити.</p>
+      <div class="grid4">
+        <article class="mini fx fx-l"><b>250+</b><h3>Фабрика лендінгів на n8n</h3><p>Бриф стає працюючим сайтом. Усі сайти працюють на одному спільному ядрі й шаблоні.</p></article>
+        <article class="mini fx fx-r"><b>4</b><h3>Конвеєр замовлень і реклами</h3><p>Одне ядро відправляє замовлення в CRM, Telegram, Facebook CAPI і TikTok Events API зі спільною UTM-атрибуцією.</p></article>
+        <article class="mini fx fx-l"><b>100+</b><h3>Міграція хостингу без простою</h3><p>Docker-репліка продакшену й проби ідентичності відповідей перед перемиканням, із командою відкату.</p></article>
+        <article class="mini fx fx-r"><b>284</b><h3>Граф знань коду для ШІ-агентів</h3><p>Перебудовується щотижня за секунди без LLM, тож агенти шукають у графі, а не перечитують файли.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="ai">
+    <div class="wrap work-grid">
+      <div class="fx fx-l">
+        <h2>Агенти пишуть значну частину коду. За результат відповідаю я.</h2>
+        <ul class="rules">
+          <li><b>Ставлю цілі й пишу ТЗ</b><span>У кожної задачі є критерії готовності ще до появи коду.</span></li>
+          <li><b>Розділяю власність між агентами</b><span>Codex на інтерфейсі й бекенді, Claude Code на рушії, за письмовим контрактом.</span></li>
+          <li><b>Перевіряю кожну зміну й тестую на реальних даних</b><span>Жоден результат не приймається на слово агента.</span></li>
+          <li><b>Можу пояснити кожну частину, яку випускаю</b><span>Знаю архітектуру, а не лише результат.</span></li>
+        </ul>
+      </div>
+      <div class="files fx fx-r">
+        <p class="mono">Проблеми, розібрані до першопричини</p>
+        <article class="file"><h3>Обʼєднання падало лише на продакшені</h3><dl>
+          <div><dt>Причина</dt><dd>MySQL 8.4 відхиляє шлях JSON-ключа без лапок. Тести йшли на MariaDB і цього не показали.</dd></div>
+          <div><dt>Рішення</dt><dd>Ключ узято в лапки, тести перенесено на MySQL 8.4.</dd></div></dl></article>
+        <article class="file"><h3>Продакшен упав при зелених тестах</h3><dl>
+          <div><dt>Причина</dt><dd>Виклик, застарілий у PHP 8.5, став фатальною помилкою лише на сервері.</dd></div>
+          <div><dt>Рішення</dt><dd>Виклик прибрано й додано охоронний тест на застарілі функції.</dd></div></dl></article>
+        <article class="file"><h3>Telegram-бот замовк</h3><dl>
+          <div><dt>Причина</dt><dd>Telegram змінив ID групи, коли чат став супергрупою.</dd></div>
+          <div><dt>Рішення</dt><dd>Бот тепер автоматично відстежує міграцію чату.</dd></div></dl></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2 class="fx fx-l">Поговорімо про вакансію.</h2>
+      <div class="contact-list fx fx-u">
+        <div><span class="mono">Email</span><span>[ваш email]</span></div>
+        <div><span class="mono">Telegram</span><span>[ваш нік]</span></div>
+        <div><span class="mono">LinkedIn</span><span>[посилання на профіль]</span></div>
+        <div><span class="mono">Резюме</span><span>[посилання на PDF]</span></div>
+      </div>
+      <p class="foot">Україна · Англійська: B1, самооцінка · Створено з Claude Code</p>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" hidden><img id="lbimg" alt=""></div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var native=window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()');
+
+  /* fallback for browsers without scroll-driven animations: toggle a class on enter and exit */
+  var fx=[].slice.call(document.querySelectorAll('.fx'));
+  if(!native&&!reduced&&'IntersectionObserver' in window){
+    root.classList.add('fb');
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){e.target.classList.toggle('on',e.isIntersecting)});
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    fx.forEach(function(el){io.observe(el)});
+  }
+
+  /* reading progress */
+  var bar=document.getElementById('progress'),tick=false;
+  function setBar(){
+    var h=root.scrollHeight-window.innerHeight;
+    bar.style.transform='scaleX('+(h>0?Math.min(1,window.scrollY/h):0)+')';
+    tick=false;
+  }
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(setBar)}},{passive:true});
+  setBar();
+
+  /* numbers count up the first time they scroll into view */
+  function fmt(n,src){return /[\s, ]/.test(src)?n.toLocaleString('uk-UA'):String(n)}
+  if(!reduced&&'IntersectionObserver' in window){
+    var cio=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var el=e.target;cio.unobserve(el);
+        var to=+el.getAttribute('data-to'),text=el.textContent,suffix=/\+$/.test(text)?'+':'',t0=performance.now();
+        (function step(t){
+          var p=Math.min(1,(t-t0)/900),v=Math.round(to*(1-Math.pow(1-p,3)));
+          el.textContent=fmt(v,text)+(p<1?'':suffix);
+          if(p<1)requestAnimationFrame(step);
+        })(t0);
+      });
+    },{threshold:.6});
+    [].slice.call(document.querySelectorAll('.count')).forEach(function(el){cio.observe(el)});
+  }
+
+  /* screenshots: if img/<name>.webp exists next to the page, it replaces the placeholder and opens in a lightbox */
+  var lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');
+  [].slice.call(document.querySelectorAll('.shot[data-img]')).forEach(function(fig){
+    var im=new Image();
+    im.onload=function(){
+      im.alt=(fig.querySelector('figcaption')||{}).textContent||'';
+      var ph=fig.querySelector('.ph');if(ph)fig.replaceChild(im,ph);
+      fig.classList.add('loaded');
+      fig.addEventListener('click',function(){lbimg.src=im.src;lbimg.alt=im.alt;lb.hidden=false});
+    };
+    im.onerror=function(){};
+    im.src=fig.getAttribute('data-img');
+  });
+  lb.addEventListener('click',function(){lb.hidden=true});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true});
+})();
+</script>
+
+</body></html>

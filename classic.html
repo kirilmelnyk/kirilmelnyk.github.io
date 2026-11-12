@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Kyrylo Melnyk Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap">
+</head><body><style>
+/* Layout concept: one long scroll. Each case sets text on one side and its process on the other, alternating.
+   Blocks fly in from the sides as they enter the screen and fly back out as they leave. */
+:root{
+  --bg:#f4f7fc; --surface:#ffffff; --surface-2:#e8eef9; --fg:#0e1a3c; --muted:#4b5a80; --line:#d1daed;
+  --navy:#203572; --accent:#077a97; --accent-soft:rgba(7,122,151,.11); --on-navy:#ffffff;
+  --warn:#9a5b00; --warn-soft:rgba(154,91,0,.1); --ok:#0b7a4d; --ok-soft:rgba(11,122,77,.1);
+  --f-display:'Space Grotesk','Segoe UI',system-ui,sans-serif;
+  --f-body:'Inter','Segoe UI',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --shadow:0 18px 50px -24px rgba(14,26,60,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1229; --surface:#111b3b; --surface-2:#17234a; --fg:#e9eefc; --muted:#a2b2d9; --line:#243259;
+    --navy:#3fc7df; --accent:#3fc7df; --accent-soft:rgba(63,199,223,.13); --on-navy:#06142e;
+    --warn:#f0b35a; --warn-soft:rgba(240,179,90,.12); --ok:#5fd6a3; --ok-soft:rgba(95,214,163,.12);
+    --shadow:0 18px 50px -24px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1229; --surface:#111b3b; --surface-2:#17234a; --fg:#e9eefc; --muted:#a2b2d9; --line:#243259;
+  --navy:#3fc7df; --accent:#3fc7df; --accent-soft:rgba(63,199,223,.13); --on-navy:#06142e;
+  --warn:#f0b35a; --warn-soft:rgba(240,179,90,.12); --ok:#5fd6a3; --ok-soft:rgba(95,214,163,.12);
+  --shadow:0 18px 50px -24px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.05;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{font-family:var(--f-display);font-weight:700;text-decoration:none;font-size:17px}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.nav a{font-size:14px;text-decoration:none;padding:6px 12px;border-radius:999px;color:var(--muted);transition:background .2s,color .2s}
+.nav a:hover{background:var(--accent-soft);color:var(--fg)}
+.progress{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+
+/* hero */
+.hero{padding-block:clamp(40px,7vw,96px) clamp(48px,6vw,80px);position:relative}
+.hero::before{content:"";position:absolute;inset:-120px -10% auto auto;width:640px;height:640px;border-radius:50%;background:radial-gradient(closest-side,var(--accent-soft),transparent);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:center;position:relative}
+.hero h1{font-size:clamp(46px,8.4vw,104px);font-weight:700;letter-spacing:-.035em;line-height:.92}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.role{margin-top:18px}
+.lead{margin-top:22px;font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:54ch}
+.lead b{color:var(--fg);font-weight:600}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--navy);transition:transform .2s,background .2s,color .2s}
+.btn.primary{background:var(--navy);color:var(--on-navy)}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost:hover{background:var(--accent-soft)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.stat{padding:18px 18px 0 0}
+.stat+.stat{padding-left:18px;border-left:1px solid var(--line)}
+.stat b{display:block;font-family:var(--f-display);font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:8px;font-size:13.5px;color:var(--muted);line-height:1.4}
+
+/* cards and flows */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}
+.card h3{font-size:19px;letter-spacing:-.01em}
+.raw{margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--surface-2);font-family:var(--f-mono);font-size:14px}
+.raw small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.flow{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:0}
+.flow li{position:relative;padding:0 0 18px 38px}
+.flow li:last-child{padding-bottom:0}
+.flow li::before{content:"";position:absolute;left:11px;top:26px;bottom:2px;width:2px;background:var(--line)}
+.flow li:last-child::before{display:none}
+.flow li::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;border:2px solid var(--accent);background:var(--surface)}
+.flow b{display:block;font-weight:600;line-height:1.3}
+.flow span{display:block;font-size:14px;color:var(--muted);line-height:1.45}
+
+/* cases */
+.case{padding-block:clamp(48px,7vw,96px);border-top:1px solid var(--line)}
+.case-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(28px,5vw,72px);align-items:start}
+.case.rev .case-text{order:2}
+.case h2{font-size:clamp(32px,4.6vw,56px);margin-top:10px}
+.sub{margin-top:12px}
+.rows{margin:28px 0 0;display:grid;gap:0}
+.rows div{display:grid;grid-template-columns:92px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.rows dt{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-top:3px}
+.rows dd{margin:0}
+.rows dd strong{font-weight:600}
+.metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.metric{padding:10px 16px;border-radius:14px;background:var(--accent-soft)}
+.metric b{font-family:var(--f-display);font-size:24px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.metric span{display:block;font-size:12.5px;color:var(--muted);line-height:1.3}
+.case-viz{display:grid;gap:18px;min-width:0}
+.gate{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.gate div{padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.5}
+.gate .hard{background:var(--warn-soft)}
+.gate .soft{background:var(--ok-soft)}
+.gate b{display:block;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.gate .hard b{color:var(--warn)}
+.gate .soft b{color:var(--ok)}
+.gate ul{margin:0;padding-left:18px}
+.shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.shot{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface);cursor:default}
+.shot .ph{aspect-ratio:16/10;display:grid;place-items:center;text-align:center;padding:14px;color:var(--muted);font-size:13px;line-height:1.4;background:repeating-linear-gradient(135deg,var(--surface-2) 0 12px,transparent 12px 24px)}
+.shot .ph b{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.shot img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.shot.loaded{cursor:zoom-in}
+.shot figcaption{padding:10px 12px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+
+/* also built */
+.band{padding-block:clamp(48px,7vw,96px);border-top:1px solid var(--line)}
+.band h2{font-size:clamp(30px,4.2vw,52px);max-width:18ch}
+.band .intro{margin-top:14px;color:var(--muted);max-width:58ch}
+.grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:36px}
+.mini{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.mini b{display:block;font-family:var(--f-display);font-size:34px;letter-spacing:-.03em;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.mini h3{font-size:18px;margin-top:12px;letter-spacing:-.01em}
+.mini p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+
+/* how I work */
+.work-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.rules{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:0}
+.rules li{padding:16px 0;border-top:1px solid var(--line)}
+.rules b{display:block;font-weight:600}
+.rules span{color:var(--muted);font-size:15px}
+.files{display:grid;gap:14px}
+.file{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.file h3{font-size:17px;letter-spacing:-.01em}
+.file dl{margin:12px 0 0;display:grid;gap:8px}
+.file dl div{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;font-size:14.5px}
+.file dt{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-top:3px}
+.file dd{margin:0;color:var(--muted)}
+
+/* contact */
+.contact{padding-block:clamp(56px,8vw,112px);border-top:1px solid var(--line)}
+.contact h2{font-size:clamp(36px,6vw,76px);max-width:14ch}
+.contact-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:36px;max-width:760px}
+.contact-list div{padding:16px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);min-width:0}
+.contact-list .mono{display:block;margin-bottom:4px}
+.contact-list span:not(.mono){font-family:var(--f-mono);font-size:15px;overflow-wrap:anywhere;user-select:all}
+.foot{margin-top:56px;color:var(--muted);font-size:13.5px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;background:rgba(6,12,30,.86)}
+.lb img{max-width:min(1200px,100%);max-height:100%;border-radius:12px}
+
+/* motion: blocks fly in from the sides on entry and out on exit */
+@keyframes in-l{from{opacity:0;transform:translateX(-110px)}to{opacity:1;transform:none}}
+@keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-110px)}}
+@keyframes in-r{from{opacity:0;transform:translateX(110px)}to{opacity:1;transform:none}}
+@keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(110px)}}
+@keyframes in-u{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes out-u{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-40px)}}
+@keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@supports (animation-timeline: view()){
+  .fx{animation-duration:auto,auto;animation-timing-function:linear,linear;animation-fill-mode:both,both;
+      animation-timeline:view(),view();animation-range:entry 0% entry 55%,exit 45% exit 100%}
+  .fx-l{animation-name:in-l,out-l}
+  .fx-r{animation-name:in-r,out-r}
+  .fx-u{animation-name:in-u,out-u}
+}
+.fb .fx{opacity:0;transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .8s}
+.fb .fx-l{transform:translateX(-90px)}
+.fb .fx-r{transform:translateX(90px)}
+.fb .fx-u{transform:translateY(50px)}
+.fb .fx.on{opacity:1;transform:none}
+@media (max-width:860px){
+  .hero-grid,.case-grid,.work-grid{grid-template-columns:minmax(0,1fr)}
+  .case.rev .case-text{order:0}
+  .nav a{padding:6px 9px}
+  .grid4,.contact-list,.shots,.gate{grid-template-columns:minmax(0,1fr)}
+  .rows div{grid-template-columns:minmax(0,1fr);gap:4px}
+  .stat{padding-right:10px}
+  .stat+.stat{padding-left:10px}
+  @keyframes in-l{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+  @keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-40px)}}
+  @keyframes in-r{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+  @keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(40px)}}
+}
+@media (max-width:520px){.nav a:nth-child(n+4){display:none}}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .fx,.fb .fx{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Kyrylo <span>Melnyk</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#cases">Cases</a>
+      <a href="#also">Also built</a>
+      <a href="#ai">AI workflow</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="fx fx-l">
+        <p class="mono">IT and AI automation · Ukraine</p>
+        <h1 class="role">Kyrylo<br>Melnyk<em>.</em></h1>
+        <p class="lead">I replace manual routine with systems that run in production: shipments, orders, ad tracking, video. I build them with <b>Claude Code</b> and <b>Codex</b> under my direction, and I answer for every result. Before IT, 9+ years in logistics at Nova Poshta.</p>
+        <div class="cta">
+          <a class="btn primary" href="#cases">See the cases</a>
+          <a class="btn ghost" href="#contact">Contact</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>280</b><span>waybills created in two days</span></div>
+          <div class="stat"><b>19,000</b><span>products imported in about 90 seconds</span></div>
+          <div class="stat"><b>549</b><span>automated tests, 100+ releases</span></div>
+        </div>
+      </div>
+      <aside class="card fx fx-r" aria-label="How a Telegram request becomes a waybill">
+        <p class="mono">Telegram request to waybill</p>
+        <div class="raw"><small>Request as written</small>Київ 19 · оценка 200</div>
+        <ol class="flow">
+          <li><b>Parse</b><span>LLM, alias dictionary that learns, regex fallback</span></li>
+          <li><b>Check</b><span>City, street and branch against the Nova Poshta API</span></li>
+          <li><b>Confirm</b><span>Doubtful cases wait for a person</span></li>
+          <li><b>Create</b><span>Bulk waybills, registries, print cards</span></li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <div id="cases"></div>
+
+  <section class="case" id="np">
+    <div class="wrap case-grid">
+      <div class="case-text fx fx-l">
+        <p class="mono">Case · Logistics</p>
+        <h2>Nova Poshta shipment automation</h2>
+        <p class="sub mono">Telegram · AI parsing · bulk waybills · live system</p>
+        <dl class="rows">
+          <div><dt>Problem</dt><dd>Orders arrived as free text in Telegram. Addresses and waybills were handled one by one by hand, and a typo in an amount or variety cost money.</dd></div>
+          <div><dt>Built</dt><dd>A layered parser, address checks against the Nova Poshta API, bulk waybills (TTN) for three counterparties with separate keys, seat splitting by the 25 kg limit, volumetric weight, registries and print cards.</dd></div>
+          <div><dt>Result</dt><dd><strong>280 waybills in two days.</strong> A test registry of 319 was accepted by Nova Poshta. Every rule change is re-run on 87 to 280 real requests.</dd></div>
+          <div><dt>My role</dt><dd>Requirements, risk rules, testing on real data and on the Nova Poshta test account, acceptance. The code was written with Claude Code.</dd></div>
+        </dl>
+        <div class="metrics">
+          <div class="metric"><b class="count" data-to="280">280</b><span>waybills in two days</span></div>
+          <div class="metric"><b class="count" data-to="319">319</b><span>in the accepted test registry</span></div>
+          <div class="metric"><b class="count" data-to="3">3</b><span>counterparties, own keys</span></div>
+        </div>
+      </div>
+      <div class="case-viz fx fx-r">
+        <div class="card">
+          <h3>The confirmation gate</h3>
+          <p style="margin-top:6px;color:var(--muted);font-size:14.5px">A waybill is created only after the request passes, or a person confirms it.</p>
+          <div class="gate">
+            <div class="hard"><b>Blocks until fixed</b><ul><li>No amount</li><li>Unknown variety</li><li>City not found</li></ul></div>
+            <div class="soft"><b>Needs a person's OK</b><ul><li>Price over 30% off the list</li><li>Unclear quantity, like 5+5</li><li>Conflicting payment</li><li>Fuzzy city match, duplicate</li></ul></div>
+          </div>
+        </div>
+        <div class="shots">
+          <figure class="shot" data-img="img/np-review.webp"><div class="ph"><div><b>Screenshot</b>Requests table before waybills are created</div></div><figcaption>Review table, one row per request</figcaption></figure>
+          <figure class="shot" data-img="img/np-print.webp"><div class="ph"><div><b>Screenshot</b>Print card, four to an A4 sheet</div></div><figcaption>Print cards for packers</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case rev" id="store">
+    <div class="wrap case-grid">
+      <div class="case-text fx fx-r">
+        <p class="mono">Case · E-commerce</p>
+        <h2>Online store run with AI agents</h2>
+        <p class="sub mono">PHP 8 · MySQL · Cloudflare · CRM · live</p>
+        <dl class="rows">
+          <div><dt>Problem</dt><dd>Launch a full store with catalog, cart, checkout, admin, SEO and ad tracking, without a dev team, next to live landing pages that must not break.</dd></div>
+          <div><dt>Built</dt><dd>Codex wrote the backend and Claude Code the frontend under my plan, API contract and task specs. A commit gate runs the tests, deploys take one command, and an AI ads agent can only propose, with an audit log and a kill switch.</dd></div>
+          <div><dt>Result</dt><dd><strong>About 19,000 products imported in roughly 90 seconds.</strong> 340+ commits in about a month, 500+ ad proposals handled safely, launched behind a Cloudflare Worker with a rollback switch.</dd></div>
+          <div><dt>My role</dt><dd>Product owner and tech lead: plan, contract, task specs, review of every result, business decisions.</dd></div>
+        </dl>
+        <div class="metrics">
+          <div class="metric"><b class="count" data-to="19000">19,000</b><span>products imported</span></div>
+          <div class="metric"><b class="count" data-to="340">340+</b><span>commits in about a month</span></div>
+          <div class="metric"><b class="count" data-to="500">500+</b><span>ad proposals, none auto-applied</span></div>
+        </div>
+      </div>
+      <div class="case-viz fx fx-l">
+        <div class="card">
+          <h3>Two agents, one contract</h3>
+          <ol class="flow">
+            <li><b>Plan, API contract, task specs</b><span>Written by me, one spec per task</span></li>
+            <li><b>Codex builds the backend, Claude Code the frontend</b><span>In parallel git worktrees with their own test databases</span></li>
+            <li><b>Commit gate</b><span>Tests run before anything is saved</span></li>
+            <li><b>One-command deploy</b><span>Then orders flow to the CRM and Nova Poshta, ad events go server-side</span></li>
+          </ol>
+        </div>
+        <div class="shots">
+          <figure class="shot" data-img="img/store-admin.webp"><div class="ph"><div><b>Screenshot</b>Admin: orders or the ad proposals section</div></div><figcaption>Admin, orders and proposals</figcaption></figure>
+          <figure class="shot" data-img="img/store-front.webp"><div class="ph"><div><b>Screenshot</b>Storefront on a phone</div></div><figcaption>Storefront on a phone</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case" id="studio">
+    <div class="wrap case-grid">
+      <div class="case-text fx fx-l">
+        <p class="mono">Case · Video production</p>
+        <h2>Prosperity Studio</h2>
+        <p class="sub mono">Python · Qt · ffmpeg · desktop app</p>
+        <dl class="rows">
+          <div><dt>Problem</dt><dd>One long video took dozens of manual steps across LLM, voice, image and editing services.</dd></div>
+          <div><dt>Built</dt><dd>A desktop app that turns a topic into a finished video in several languages, with a job queue, retries and self-healing. Updates keep a database backup and roll back fully. One command releases a version and tests the unpacked package first.</dd></div>
+          <div><dt>Result</dt><dd><strong>549 automated tests and 100+ releases in ten weeks.</strong> Each fix is traced to a user complaint and its root cause.</dd></div>
+          <div><dt>My role</dt><dd>Product owner of two AI agents, Codex on the interface and Claude Code on the engine, under a written ownership contract.</dd></div>
+        </dl>
+        <div class="metrics">
+          <div class="metric"><b class="count" data-to="549">549</b><span>automated tests</span></div>
+          <div class="metric"><b class="count" data-to="100">100+</b><span>releases in ten weeks</span></div>
+        </div>
+      </div>
+      <div class="case-viz fx fx-r">
+        <div class="card">
+          <h3>From topic to upload</h3>
+          <ol class="flow">
+            <li><b>Topic and research</b><span>Sources gathered before the script</span></li>
+            <li><b>Script, voice-over, scene images</b><span>Images drawn once and shared across languages</span></li>
+            <li><b>Montage, thumbnails, shorts</b><span>ffmpeg, face-tracked vertical crops</span></li>
+            <li><b>Upload</b><span>A failed step resumes without paying for earlier ones again</span></li>
+          </ol>
+        </div>
+        <div class="shots">
+          <figure class="shot" data-img="img/studio-queue.webp"><div class="ph"><div><b>Screenshot</b>Episode table and job queue</div></div><figcaption>Episodes and job queue</figcaption></figure>
+          <figure class="shot" data-img="img/studio-release.webp"><div class="ph"><div><b>Screenshot</b>Release run, all checks green</div></div><figcaption>One-command release</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="also">
+    <div class="wrap">
+      <h2 class="fx fx-l">Also built</h2>
+      <p class="intro fx fx-l">Smaller systems around the same idea: one shared core instead of per-site code, and every change reversible.</p>
+      <div class="grid4">
+        <article class="mini fx fx-l"><b>250+</b><h3>Landing-site factory in n8n</h3><p>A brief becomes a live site. Every site runs on one shared core and template.</p></article>
+        <article class="mini fx fx-r"><b>4</b><h3>Order and ad pipeline</h3><p>One core sends orders to the CRM, Telegram, Facebook CAPI and TikTok Events API, with shared UTM attribution.</p></article>
+        <article class="mini fx fx-l"><b>100+</b><h3>Zero-downtime hosting migration</h3><p>A Docker replica of production and identity probes before the switch, with a rollback command.</p></article>
+        <article class="mini fx fx-r"><b>284</b><h3>Code knowledge graph for AI agents</h3><p>Rebuilt weekly in seconds with no LLM, so agents look things up instead of re-reading files.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="ai">
+    <div class="wrap work-grid">
+      <div class="fx fx-l">
+        <h2>Agents write much of the code. I own the result.</h2>
+        <ul class="rules">
+          <li><b>I set the goals and write the specs</b><span>Each task has acceptance criteria before any code exists.</span></li>
+          <li><b>I split ownership between agents</b><span>Codex on the interface and backend, Claude Code on the engine, in a written contract.</span></li>
+          <li><b>I review every change and test on real data</b><span>No result is accepted on the agent's word.</span></li>
+          <li><b>I can explain every part I ship</b><span>I know the architecture, not only the output.</span></li>
+        </ul>
+      </div>
+      <div class="files fx fx-r">
+        <p class="mono">Problems traced to the root cause</p>
+        <article class="file"><h3>Merge failed on production only</h3><dl>
+          <div><dt>Cause</dt><dd>MySQL 8.4 rejects an unquoted JSON key path. Tests ran on MariaDB and hid it.</dd></div>
+          <div><dt>Fix</dt><dd>Quoted the key and moved the tests to MySQL 8.4.</dd></div></dl></article>
+        <article class="file"><h3>Production crashed with green tests</h3><dl>
+          <div><dt>Cause</dt><dd>A call deprecated in PHP 8.5 became a fatal error on the server only.</dd></div>
+          <div><dt>Fix</dt><dd>Removed the call and added a guard test for deprecated calls.</dd></div></dl></article>
+        <article class="file"><h3>The Telegram bot went silent</h3><dl>
+          <div><dt>Cause</dt><dd>Telegram changed the group ID when the chat became a supergroup.</dd></div>
+          <div><dt>Fix</dt><dd>The bot now follows the chat migration automatically.</dd></div></dl></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2 class="fx fx-l">Let's talk about the role.</h2>
+      <div class="contact-list fx fx-u">
+        <div><span class="mono">Email</span><span>[your email]</span></div>
+        <div><span class="mono">Telegram</span><span>[your handle]</span></div>
+        <div><span class="mono">LinkedIn</span><span>[your profile link]</span></div>
+        <div><span class="mono">Résumé</span><span>[link to the PDF]</span></div>
+      </div>
+      <p class="foot">Ukraine · English: B1, self-assessed · Built with Claude Code</p>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" hidden><img id="lbimg" alt=""></div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var native=window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()');
+
+  /* fallback for browsers without scroll-driven animations: toggle a class on enter and exit */
+  var fx=[].slice.call(document.querySelectorAll('.fx'));
+  if(!native&&!reduced&&'IntersectionObserver' in window){
+    root.classList.add('fb');
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){e.target.classList.toggle('on',e.isIntersecting)});
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    fx.forEach(function(el){io.observe(el)});
+  }
+
+  /* reading progress */
+  var bar=document.getElementById('progress'),tick=false;
+  function setBar(){
+    var h=root.scrollHeight-window.innerHeight;
+    bar.style.transform='scaleX('+(h>0?Math.min(1,window.scrollY/h):0)+')';
+    tick=false;
+  }
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(setBar)}},{passive:true});
+  setBar();
+
+  /* numbers count up the first time they scroll into view */
+  function fmt(n,src){return src.indexOf(',')>-1?n.toLocaleString('en-US'):String(n)}
+  if(!reduced&&'IntersectionObserver' in window){
+    var cio=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var el=e.target;cio.unobserve(el);
+        var to=+el.getAttribute('data-to'),text=el.textContent,suffix=/\+$/.test(text)?'+':'',t0=performance.now();
+        (function step(t){
+          var p=Math.min(1,(t-t0)/900),v=Math.round(to*(1-Math.pow(1-p,3)));
+          el.textContent=fmt(v,text)+(p<1?'':suffix);
+          if(p<1)requestAnimationFrame(step);
+        })(t0);
+      });
+    },{threshold:.6});
+    [].slice.call(document.querySelectorAll('.count')).forEach(function(el){cio.observe(el)});
+  }
+
+  /* screenshots: if img/<name>.webp exists next to the page, it replaces the placeholder and opens in a lightbox */
+  var lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');
+  [].slice.call(document.querySelectorAll('.shot[data-img]')).forEach(function(fig){
+    var im=new Image();
+    im.onload=function(){
+      im.alt=(fig.querySelector('figcaption')||{}).textContent||'';
+      var ph=fig.querySelector('.ph');if(ph)fig.replaceChild(im,ph);
+      fig.classList.add('loaded');
+      fig.addEventListener('click',function(){lbimg.src=im.src;lbimg.alt=im.alt;lb.hidden=false});
+    };
+    im.onerror=function(){};
+    im.src=fig.getAttribute('data-img');
+  });
+  lb.addEventListener('click',function(){lb.hidden=true});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true});
+})();
+</script>
+
+</body></html>
