@@ -221,6 +221,8 @@ a.poster:focus-visible .poster-frame{outline:2px solid var(--ink);outline-offset
 .contact-rows div>span:nth-child(2){font-family:var(--mono);font-size:14.5px;overflow-wrap:anywhere}
 .copy{min-height:36px;padding:0 12px;border:1px solid rgba(244,244,241,.4);border-radius:3px;font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--on-band)}
 .copy:hover{background:rgba(244,244,241,.1)}
+a.copy{display:inline-flex;align-items:center;text-decoration:none!important}
+html[lang="en"] a.copy[data-l="uk"],html[lang="uk"] a.copy[data-l="en"]{display:none}
 .foot{padding-block:28px;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;color:var(--soft);font-size:13.5px}
 .toast{position:fixed;left:50%;bottom:28px;z-index:80;transform:translate(-50%,16px);opacity:0;background:var(--ink);color:var(--paper);padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;pointer-events:none;transition:opacity .28s,transform .28s var(--ease)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
@@ -636,17 +638,15 @@ value 250</span><span data-l="uk">Тест Тестович
         </div>
       </div>
       <div class="contact-rows fx fx-r">
-        <div><span class="meta">Email</span><span><span data-l="en">iKyriosan@gmail.com</span><span data-l="uk">iKyriosan@gmail.com</span></span><button class="copy" type="button" data-copy="[your email]"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
-        <div><span class="meta">Telegram</span><span><span data-l="en">@Kyriosan</span><span data-l="uk">@Kyriosan</span></span><button class="copy" type="button" data-copy="[your handle]"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
-        <div><span class="meta">LinkedIn</span><span><span data-l="en">[your profile link]</span><span data-l="uk">[посилання на профіль]</span></span><button class="copy" type="button" data-copy="[your profile link]"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
-        <div><span class="meta"><span data-l="en">Resume</span><span data-l="uk">Резюме</span></span><span><span data-l="en">[link to the PDF]</span><span data-l="uk">[посилання на PDF]</span></span><button class="copy" type="button" data-copy="[link to the PDF]"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
+        <div><span class="meta">Email</span><span>iKyriosan@gmail.com</span><button class="copy" type="button" data-copy="iKyriosan@gmail.com"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
+        <div><span class="meta">Telegram</span><span><a href="https://t.me/Kyriosan" target="_blank" rel="noopener">@Kyriosan</a></span><button class="copy" type="button" data-copy="@Kyriosan"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
+        <div><span class="meta">GitHub</span><span><a href="https://github.com/kirilmelnyk" target="_blank" rel="noopener">github.com/kirilmelnyk</a></span><button class="copy" type="button" data-copy="https://github.com/kirilmelnyk"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
+        <div><span class="meta"><span data-l="en">Resume</span><span data-l="uk">Резюме</span></span><span><span data-l="en">Kyrylo-Melnyk-Resume-EN.pdf</span><span data-l="uk">Kyrylo-Melnyk-Resume-UA.pdf</span></span><a class="copy dl" data-l="en" href="resume/Kyrylo-Melnyk-Resume-EN.pdf" download>Download</a><a class="copy dl" data-l="uk" href="resume/Kyrylo-Melnyk-Resume-UA.pdf" download>Завантажити</a></div>
         <div><span class="meta"><span data-l="en">Website</span><span data-l="uk">Сайт</span></span><span><a href="https://unitbox.site" target="_blank" rel="noopener">unitbox.site</a></span><button class="copy" type="button" data-copy="https://unitbox.site"><span data-l="en">Copy</span><span data-l="uk">Копіювати</span></button></div>
       </div>
     </div>
   </section>
 </main>
-
-<footer class="wrap foot"><span><span data-l="en">Kyrylo Melnyk · Ukraine</span><span data-l="uk">Кирило Мельник · Україна</span></span><span><span data-l="en">English B1, self-assessed · Built with Claude Code</span><span data-l="uk">Англійська B1, самооцінка · Створено з Claude Code</span></span></footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="lb" id="lb" hidden><img id="lbimg" alt=""></div>
@@ -788,7 +788,7 @@ value 250</span><span data-l="uk">Тест Тестович
     }
   }
   [].slice.call(document.querySelectorAll('.copy')).forEach(function(b){b.addEventListener('click',function(){copy(b.getAttribute('data-copy'))})});
-  document.getElementById('mailBtn').addEventListener('click',function(){copy('[your email]')});
+  document.getElementById('mailBtn').addEventListener('click',function(){copy('iKyriosan@gmail.com')});
 
 
   /* NP pipeline illustration: steps light up one after another */
