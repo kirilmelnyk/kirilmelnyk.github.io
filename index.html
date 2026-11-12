@@ -289,6 +289,47 @@ a.poster:focus-visible .poster-frame{outline:2px solid var(--ink);outline-offset
   .js .portrait{opacity:1!important;transform:rotate(-1.4deg)!important}
 }
 
+/* NP pipeline illustration */
+.demo{margin:0 0 clamp(40px,5vw,72px);padding:clamp(18px,2.6vw,32px);background:color-mix(in srgb,var(--paper-3) 60%,transparent);border:1px solid var(--line-strong);box-shadow:var(--shadow-sheet)}
+.demo-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;margin-bottom:22px}
+.demo-head .meta{max-width:60ch}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.step{position:relative;padding:16px;background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;gap:10px;min-width:0}
+.step::after{content:"";position:absolute;top:30px;right:-20px;width:20px;height:1.5px;background:var(--ink);opacity:.55}
+.step:last-child::after{display:none}
+.step-n{font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.06em}
+.step h4{margin:0;font-size:16px;font-weight:700;letter-spacing:-.012em;line-height:1.2}
+.step-note{font-size:12.5px;line-height:1.45;color:var(--muted)}
+.tg{background:var(--paper-3);border:1px solid var(--line);border-radius:10px 10px 10px 2px;padding:10px 12px;font-family:var(--mono);font-size:12.5px;line-height:1.55;white-space:pre-line}
+.tg small{display:block;margin-top:4px;color:var(--soft);font-size:10.5px;text-align:right}
+.fl{display:grid;gap:6px;margin:0}
+.fl div{display:flex;justify-content:space-between;gap:10px;padding-bottom:5px;border-bottom:1px dashed var(--line);font-size:13px;line-height:1.35}
+.fl dt{color:var(--soft);font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding-top:2px}
+.fl dd{margin:0;text-align:right;font-weight:600}
+.hl{background:var(--ink);color:var(--paper);padding:0 6px;border-radius:2px}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.chk li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;font-size:13px;line-height:1.4;align-items:start}
+.chk .ic{font-size:17px;stroke-width:1.9}
+.bang{width:17px;height:17px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:11px;font-weight:800;line-height:1}
+.confirm{position:relative;min-height:46px}
+.confirm>span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--ink);border-radius:3px;font-size:14px;font-weight:650}
+.confirm .done{background:var(--ink);color:var(--paper);opacity:0}
+.confirm .done .ic{font-size:17px}
+.cp{border:1.5px solid var(--ink);background:var(--paper-3);padding:10px 12px}
+.cp .big{font-size:48px;font-weight:900;letter-spacing:-.05em;line-height:.9}
+.cp .big small{font-size:14px;font-weight:700;letter-spacing:0;margin-left:4px}
+.cp p{margin-top:6px;font-size:13px;font-weight:650;line-height:1.3}
+.cp .mono{display:block;margin-top:6px;font-size:11px;color:var(--soft);letter-spacing:.02em}
+.demo-foot{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-top:20px}
+.js .demo .step{opacity:.2;transform:translateY(8px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.js .demo.run .step{opacity:1;transform:none;transition-delay:calc(var(--i)*650ms)}
+.js .demo.run .confirm .wait{animation:cf-out .3s forwards;animation-delay:3.1s}
+.js .demo.run .confirm .done{animation:cf-in .3s forwards;animation-delay:3.1s}
+@keyframes cf-out{to{opacity:0}}
+@keyframes cf-in{to{opacity:1}}
+@media (max-width:1180px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step::after{display:none}}
+@media (max-width:640px){.steps{grid-template-columns:minmax(0,1fr)}}
+
 html[lang="en"] [data-l="uk"],html[lang="uk"] [data-l="en"]{display:none}
 .hdr-tools{display:flex;gap:8px;margin-left:4px}
 .tbtn{display:inline-flex;align-items:center;justify-content:center;min-width:42px;min-height:36px;padding:0 10px;border:1px solid var(--line-strong);border-radius:3px;background:color-mix(in srgb,var(--paper-3) 50%,transparent);font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:background .16s,color .16s}
@@ -410,6 +451,71 @@ html[lang="en"] [data-l="uk"],html[lang="uk"] [data-l="en"]{display:none}
         </div>
       </div>
     </article>
+
+    <section class="demo fx fx-u" id="demo" aria-label="From message to waybill">
+      <div class="demo-head">
+        <span class="chip-label is-sm"><span data-l="en">From message to waybill</span><span data-l="uk">Від заявки до ТТН</span></span>
+        <p class="meta"><span data-l="en">Illustration with sample data, no real clients</span><span data-l="uk">Ілюстрація на вигаданих даних, без реальних клієнтів</span></p>
+      </div>
+      <ol class="steps" id="steps">
+        <li class="step" style="--i:0">
+          <span class="step-n">01</span>
+          <h4><span data-l="en">A message arrives</span><span data-l="uk">Приходить заявка</span></h4>
+          <div class="tg">Тест Тестович
+Київ 19
+0990000000
+Княгиня 20
+оценка 250<small>Telegram · 10:42</small></div>
+          <p class="step-note"><span data-l="en">Free text, with typos and shorthand.</span><span data-l="uk">Вільний текст, з помилками й скороченнями.</span></p>
+        </li>
+        <li class="step" style="--i:1">
+          <span class="step-n">02</span>
+          <h4><span data-l="en">AI parses it</span><span data-l="uk">ШІ розбирає</span></h4>
+          <dl class="fl">
+            <div><dt><span data-l="en">Recipient</span><span data-l="uk">Отримувач</span></dt><dd>Тест Тестович</dd></div>
+            <div><dt><span data-l="en">City</span><span data-l="uk">Місто</span></dt><dd>Київ</dd></div>
+            <div><dt><span data-l="en">Branch</span><span data-l="uk">Відділення</span></dt><dd>№ 19</dd></div>
+            <div><dt><span data-l="en">Variety</span><span data-l="uk">Сорт</span></dt><dd>Княгиня</dd></div>
+            <div><dt><span data-l="en">Weight</span><span data-l="uk">Вага</span></dt><dd><span class="hl"><span data-l="en">20 kg</span><span data-l="uk">20 кг</span></span></dd></div>
+            <div><dt><span data-l="en">Declared</span><span data-l="uk">Оцінка</span></dt><dd>250 ₴</dd></div>
+          </dl>
+          <p class="step-note"><span data-l="en">The model read "Княгиня 20" as 1 kg. A check against the text corrects it to 20 kg and flags it.</span><span data-l="uk">Модель прочитала «Княгиня 20» як 1 кг. Звірка з текстом виправляє на 20 кг і ставить позначку.</span></p>
+        </li>
+        <li class="step" style="--i:2">
+          <span class="step-n">03</span>
+          <h4><span data-l="en">Checked against Nova Poshta</span><span data-l="uk">Перевірка в Новій Пошті</span></h4>
+          <ul class="chk">
+            <li><svg class="ic"><use href="#i-check"/></svg><span><span data-l="en">City found</span><span data-l="uk">Місто знайдено</span></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><span data-l="en">Branch 19 exists</span><span data-l="uk">Відділення 19 існує</span></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><span data-l="en">20 kg fits one seat (limit 25 kg)</span><span data-l="uk">20 кг — одне місце (ліміт 25 кг)</span></span></li>
+            <li><b class="bang">!</b><span><span data-l="en">Quantity was corrected: a person must confirm</span><span data-l="uk">Кількість виправлено: потрібне підтвердження людини</span></span></li>
+          </ul>
+        </li>
+        <li class="step" style="--i:3">
+          <span class="step-n">04</span>
+          <h4><span data-l="en">A person confirms</span><span data-l="uk">Людина підтверджує</span></h4>
+          <div class="confirm" aria-live="polite">
+            <span class="wait"><span data-l="en">Waiting for confirmation</span><span data-l="uk">Чекає підтвердження</span></span>
+            <span class="done"><svg class="ic"><use href="#i-check"/></svg><span data-l="en">All correct</span><span data-l="uk">Усе вірно</span></span>
+          </div>
+          <p class="step-note"><span data-l="en">Doubtful cases never go through on their own. Editing the request resets the confirmation.</span><span data-l="uk">Сумнівні випадки самі не проходять. Редагування заявки скидає підтвердження.</span></p>
+        </li>
+        <li class="step" style="--i:4">
+          <span class="step-n">05</span>
+          <h4><span data-l="en">Waybill and print card</span><span data-l="uk">ТТН і картка для друку</span></h4>
+          <div class="cp">
+            <div class="big">20<small><span data-l="en">kg</span><span data-l="uk">кг</span></small></div>
+            <p>Тест Тестович · Київ №19</p>
+            <span class="mono">TTN 0000 0000 0000</span>
+          </div>
+          <p class="step-note"><span data-l="en">Waybills are created in bulk. A registry and print cards, four to an A4 sheet, follow.</span><span data-l="uk">ТТН створюються пакетно. Далі реєстр і картки для друку, по чотири на аркуші А4.</span></p>
+        </li>
+      </ol>
+      <div class="demo-foot">
+        <p class="step-note"><span data-l="en">Real requests go through the same five steps, hundreds a day.</span><span data-l="uk">Справжні заявки проходять ті самі п’ять кроків, сотні на добу.</span></p>
+        <button class="btn btn-ghost btn-sm" id="replay" type="button"><span data-l="en">Replay</span><span data-l="uk">Повторити</span></button>
+      </div>
+    </section>
 
     <article class="proj rev" id="store">
       <div class="proj-poster fx fx-r"><div data-poster="store"></div></div>
@@ -671,6 +777,19 @@ html[lang="en"] [data-l="uk"],html[lang="uk"] [data-l="en"]{display:none}
   }
   [].slice.call(document.querySelectorAll('.copy')).forEach(function(b){b.addEventListener('click',function(){copy(b.getAttribute('data-copy'))})});
   document.getElementById('mailBtn').addEventListener('click',function(){copy('[your email]')});
+
+
+  /* NP pipeline illustration: steps light up one after another */
+  var demo=document.getElementById('demo');
+  if(demo){
+    var rb=document.getElementById('replay');
+    if(reduced||!('IntersectionObserver' in window)){demo.classList.add('run')}
+    else{
+      var dio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){demo.classList.add('run');dio.disconnect()}})},{threshold:.3});
+      dio.observe(demo);
+    }
+    if(rb)rb.addEventListener('click',function(){demo.classList.remove('run');void demo.offsetWidth;setTimeout(function(){demo.classList.add('run')},60)});
+  }
 
   /* screenshots: if img/<name>.webp exists next to the page it replaces the placeholder and opens in a lightbox */
   var lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');
