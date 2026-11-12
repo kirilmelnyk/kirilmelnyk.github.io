@@ -232,14 +232,14 @@ a.poster:focus-visible .poster-frame{outline:2px solid var(--ink);outline-offset
 .lb img{max-width:min(1200px,100%);max-height:100%}
 
 /* side slides: blocks enter from the sides, leave through the sides */
-@keyframes in-l{from{opacity:0;transform:translateX(-110px)}to{opacity:1;transform:none}}
-@keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-110px)}}
-@keyframes in-r{from{opacity:0;transform:translateX(110px)}to{opacity:1;transform:none}}
-@keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(110px)}}
-@keyframes in-u{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
-@keyframes out-u{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-40px)}}
+@keyframes in-l{from{opacity:0;transform:translateX(-150px)} 35%{opacity:1}to{opacity:1;transform:none}}
+@keyframes out-l{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(-150px)}}
+@keyframes in-r{from{opacity:0;transform:translateX(150px)} 35%{opacity:1}to{opacity:1;transform:none}}
+@keyframes out-r{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(150px)}}
+@keyframes in-u{from{opacity:0;transform:translateY(60px)} 35%{opacity:1}to{opacity:1;transform:none}}
+@keyframes out-u{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateY(-40px)}}
 @supports (animation-timeline: view()){
-  .fx{animation-duration:auto,auto;animation-timing-function:linear,linear;animation-fill-mode:both,both;animation-timeline:view(),view();animation-range:entry 0% entry 55%,exit 45% exit 100%}
+  .fx{animation-duration:auto,auto;animation-timing-function:linear,linear;animation-fill-mode:backwards,forwards;animation-timeline:view(),view();animation-range:entry 0% entry 60%,exit 40% exit 100%}
   .fx-l{animation-name:in-l,out-l}
   .fx-r{animation-name:in-r,out-r}
   .fx-u{animation-name:in-u,out-u}
@@ -260,10 +260,10 @@ a.poster:focus-visible .poster-frame{outline:2px solid var(--ink);outline-offset
   .cards{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:860px){
-  @keyframes in-l{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
-  @keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-40px)}}
-  @keyframes in-r{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
-  @keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(40px)}}
+  @keyframes in-l{from{opacity:0;transform:translateX(-60px)} 35%{opacity:1}to{opacity:1;transform:none}}
+  @keyframes out-l{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(-60px)}}
+  @keyframes in-r{from{opacity:0;transform:translateX(60px)} 35%{opacity:1}to{opacity:1;transform:none}}
+  @keyframes out-r{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(60px)}}
 }
 @media (max-width:760px){
   :root{--header-h:64px;--pw:clamp(120px,26vw,190px)}
@@ -387,7 +387,7 @@ a.poster:focus-visible .poster-frame{outline:2px solid var(--ink);outline-offset
         <p class="meta">Telegram · AI parsing · bulk waybills · live system</p>
         <dl class="rows">
           <div><dt>Problem</dt><dd>Orders arrived as free text in Telegram. Addresses and waybills were handled one by one by hand, and a typo in an amount or variety cost money.</dd></div>
-          <div><dt>Built</dt><dd>A layered parser (LLM, an alias dictionary that learns, regex fallback), address checks against the Nova Poshta API, bulk waybills (TTN) for three counterparties with separate keys, seat splitting by the 25 kg limit, volumetric weight, registries and print cards.</dd></div>
+          <div><dt>Built</dt><dd>A layered parser (LLM, an alias dictionary that learns, regex fallback), address checks against the Nova Poshta API, bulk waybills (TTN, the Ukrainian bill of lading) for three counterparties with separate keys, seat splitting by the 25 kg limit, volumetric weight, registries and print cards.</dd></div>
           <div><dt>Result</dt><dd><strong>280 waybills in two days.</strong> A test registry of 319 was accepted by Nova Poshta. Every rule change is re-run on 87 to 280 real requests.</dd></div>
           <div><dt>My role</dt><dd>Requirements, risk rules, testing on real data and on the Nova Poshta test account, acceptance. The code was written with Claude Code.</dd></div>
         </dl>
@@ -505,7 +505,7 @@ a.poster:focus-visible .poster-frame{outline:2px solid var(--ink);outline-offset
         <h2>Let's talk about the role.</h2>
         <p>Remote IT and AI automation. I work in English at B1 and answer within a day.</p>
         <div class="btn-row">
-          <button class="btn btn-light" type="button" id="mailBtn">Copy my email <svg class="ic ic-go"><use href="#i-go"/></svg></button>
+          <a class="btn btn-light" href="#contact" id="mailBtn">Send a message <svg class="ic ic-go"><use href="#i-go"/></svg></a>
           <a class="btn btn-ghost-light" href="#top">Back to top</a>
         </div>
       </div>
@@ -596,7 +596,7 @@ a.poster:focus-visible .poster-frame{outline:2px solid var(--ink);outline-offset
     }
   }
   [].slice.call(document.querySelectorAll('.copy')).forEach(function(b){b.addEventListener('click',function(){copy(b.getAttribute('data-copy'))})});
-  document.getElementById('mailBtn').addEventListener('click',function(){copy('[your email]')});
+  document.getElementById('mailBtn').addEventListener('click',function(e){e.preventDefault();say('Add your email in the contact list first')});
 
   /* screenshots: if img/<name>.webp exists next to the page it replaces the placeholder and opens in a lightbox */
   var lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');

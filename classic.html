@@ -162,16 +162,16 @@ a{color:inherit}
 .lb img{max-width:min(1200px,100%);max-height:100%;border-radius:12px}
 
 /* motion: blocks fly in from the sides on entry and out on exit */
-@keyframes in-l{from{opacity:0;transform:translateX(-110px)}to{opacity:1;transform:none}}
-@keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-110px)}}
-@keyframes in-r{from{opacity:0;transform:translateX(110px)}to{opacity:1;transform:none}}
-@keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(110px)}}
-@keyframes in-u{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
-@keyframes out-u{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-40px)}}
+@keyframes in-l{from{opacity:0;transform:translateX(-150px)} 35%{opacity:1}to{opacity:1;transform:none}}
+@keyframes out-l{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(-150px)}}
+@keyframes in-r{from{opacity:0;transform:translateX(150px)} 35%{opacity:1}to{opacity:1;transform:none}}
+@keyframes out-r{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(150px)}}
+@keyframes in-u{from{opacity:0;transform:translateY(60px)} 35%{opacity:1}to{opacity:1;transform:none}}
+@keyframes out-u{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateY(-40px)}}
 @keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @supports (animation-timeline: view()){
-  .fx{animation-duration:auto,auto;animation-timing-function:linear,linear;animation-fill-mode:both,both;
-      animation-timeline:view(),view();animation-range:entry 0% entry 55%,exit 45% exit 100%}
+  .fx{animation-duration:auto,auto;animation-timing-function:linear,linear;animation-fill-mode:backwards,forwards;
+      animation-timeline:view(),view();animation-range:entry 0% entry 60%,exit 40% exit 100%}
   .fx-l{animation-name:in-l,out-l}
   .fx-r{animation-name:in-r,out-r}
   .fx-u{animation-name:in-u,out-u}
@@ -189,10 +189,10 @@ a{color:inherit}
   .rows div{grid-template-columns:minmax(0,1fr);gap:4px}
   .stat{padding-right:10px}
   .stat+.stat{padding-left:10px}
-  @keyframes in-l{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
-  @keyframes out-l{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-40px)}}
-  @keyframes in-r{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
-  @keyframes out-r{from{opacity:1;transform:none}to{opacity:0;transform:translateX(40px)}}
+  @keyframes in-l{from{opacity:0;transform:translateX(-60px)} 35%{opacity:1}to{opacity:1;transform:none}}
+  @keyframes out-l{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(-60px)}}
+  @keyframes in-r{from{opacity:0;transform:translateX(60px)} 35%{opacity:1}to{opacity:1;transform:none}}
+  @keyframes out-r{from{opacity:1;transform:none} 65%{opacity:1}to{opacity:0;transform:translateX(60px)}}
 }
 @media (max-width:520px){.nav a:nth-child(n+4){display:none}}
 @media (prefers-reduced-motion: reduce){
@@ -226,7 +226,7 @@ a{color:inherit}
           <a class="btn ghost" href="#contact">Contact</a>
         </div>
         <div class="stats">
-          <div class="stat"><b>280</b><span>waybills created in two days</span></div>
+          <div class="stat"><b>280</b><span>waybills (TTN) created in two days</span></div>
           <div class="stat"><b>19,000</b><span>products imported in about 90 seconds</span></div>
           <div class="stat"><b>549</b><span>automated tests, 100+ releases</span></div>
         </div>
@@ -254,7 +254,7 @@ a{color:inherit}
         <p class="sub mono">Telegram · AI parsing · bulk waybills · live system</p>
         <dl class="rows">
           <div><dt>Problem</dt><dd>Orders arrived as free text in Telegram. Addresses and waybills were handled one by one by hand, and a typo in an amount or variety cost money.</dd></div>
-          <div><dt>Built</dt><dd>A layered parser, address checks against the Nova Poshta API, bulk waybills (TTN) for three counterparties with separate keys, seat splitting by the 25 kg limit, volumetric weight, registries and print cards.</dd></div>
+          <div><dt>Built</dt><dd>A layered parser, address checks against the Nova Poshta API, bulk waybills (TTN, the Ukrainian bill of lading) for three counterparties with separate keys, seat splitting by the 25 kg limit, volumetric weight, registries and print cards.</dd></div>
           <div><dt>Result</dt><dd><strong>280 waybills in two days.</strong> A test registry of 319 was accepted by Nova Poshta. Every rule change is re-run on 87 to 280 real requests.</dd></div>
           <div><dt>My role</dt><dd>Requirements, risk rules, testing on real data and on the Nova Poshta test account, acceptance. The code was written with Claude Code.</dd></div>
         </dl>
